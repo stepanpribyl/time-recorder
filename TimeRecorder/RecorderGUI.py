@@ -58,6 +58,7 @@ class RecorderGUI():
         self.frame_left = Frame(self.frame)
         self.frame_right = Frame(self.frame)
         self.frame_btns_f = Frame(self.frame)
+        self.frame_footer = Frame(self.frame)
         
         # children
         self.project_buttons["general"] = {
@@ -77,6 +78,11 @@ class RecorderGUI():
             "button": Button(self.frame_btns_f, text="RESULTS", bg=self.color_btn_f, width=10, font=("Sans", 10, "bold"))
         }
         
+        self.frame_footer.rowconfigure(0, weight=1)
+        self.frame_footer.columnconfigure(0, weight=1)
+        self.frame_footer.columnconfigure(1, weight=1)
+        self.version_label = Label(self.frame_footer, text=f"v{self.version}")
+        self.timer_today_label = Label(self.frame_footer, text=f"Time Today: 0:00:00")
         # only adding the READY label here, the text field goes with the project buttons
         self.current_project_label = Label(self.frame_right, text="Ready.", font=("Sans", 15, "bold"))
         self.timer_value = 0
@@ -96,11 +102,14 @@ class RecorderGUI():
         self.frame_left.grid(row=0, column=0, pady=2)
         self.frame_right.grid(row=0, column=1, sticky=N, rowspan=len(self.project_buttons.keys()))
         self.frame_btns_f.grid(row=1, column=0, columnspan=2, pady=5)
+        self.frame_footer.grid(row=2, column=0, columnspan=2, sticky=W+E)
         
         self.current_project_label.grid(row=0, column=0, sticky=N+W)
         self.timer_label.grid(row=1, column=0, sticky=W)
         self.text_block.grid(row=2, column=0, sticky=N, columnspan=10)
         
+        self.version_label.grid(row=0, column=0, sticky=W)
+        self.timer_today_label.grid(row=0, column=1, sticky=E, ipadx=10)
         i = make_counter()
         for project_id in self.project_buttons.keys():
             self.project_buttons[project_id].get("button").grid(row=i(), column=0, ipadx=5, padx=2)
