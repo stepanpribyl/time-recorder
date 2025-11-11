@@ -83,9 +83,10 @@ class RecorderGUI():
         self.frame_footer.columnconfigure(1, weight=1)
         self.version_label = Label(self.frame_footer, text=f"v{self.version}")
         self.timer_today_label = Label(self.frame_footer, text=f"Time Today: 0:00:00")
+        
         # only adding the READY label here, the text field goes with the project buttons
         self.current_project_label = Label(self.frame_right, text="Ready.", font=("Sans", 15, "bold"))
-        self.timer_value = 0
+        self.timer_today_value = 0 # timer of the day
         self.timer_t_start = None
         self.timer_running = False
         self.timer_label = Label(self.frame_right, text="0:00:00", font=("Sans", 10))
@@ -110,6 +111,7 @@ class RecorderGUI():
         
         self.version_label.grid(row=0, column=0, sticky=W)
         self.timer_today_label.grid(row=0, column=1, sticky=E, ipadx=10)
+        
         i = make_counter()
         for project_id in self.project_buttons.keys():
             self.project_buttons[project_id].get("button").grid(row=i(), column=0, ipadx=5, padx=2)
@@ -148,12 +150,25 @@ class RecorderGUI():
         return
     
     # ----------------------------------------------------------    
+    def update_timer_today(self, delta=0):
+        formatted_time = datetime.timedelta(seconds=self.timer_today_value+delta)
+        self.timer_today_label.configure(text=f"Time Today: {formatted_time}")
+        return
+    
+    # ----------------------------------------------------------    
     def update_timer(self):
         if self.timer_running:
-            self.timer_value += 1
-            formatted_time = datetime.timedelta(seconds=int(time.time())-self.timer_t_start)
+            delta = int(time.time())-self.timer_t_start
+            # self.timer_today_value += delta
+            
+            self.update_timer_today(delta)
+            
+            formatted_time = datetime.timedelta(seconds=delta)
             self.timer_label.config(text=formatted_time)
+            
             self.root.after(1000, self.update_timer)
+            
+        return
     
     # ----------------------------------------------------------    
     def run_timer(self, t_start=None):
@@ -166,17 +181,20 @@ class RecorderGUI():
             
             self.update_timer()
         
-        # self.timer_value = 0
+        # self.timer_today_value = 0
         # self.timer_label.configure(text="0:00:00")
         return
     
     # ----------------------------------------------------------    
     def stop_timer(self):
         self.timer_running = False
+        
+        # if there already is some value in the timer, add it to th overall counter
+        if self.timer_t_start != None:
+            self.timer_today_value += int(time.time()) - self.timer_t_start 
     
     # ----------------------------------------------------------    
     def reset_timer(self):
-        self.timer_value = 0
         self.timer_label.configure(text="0:00:00")
         return
         
@@ -260,11 +278,6 @@ class RecorderGUI():
         # overwrite label
         self.current_project_label.configure(text=self.project_buttons[project_id]["label"])
         
-        # restart timer
-        self.stop_timer()
-        self.reset_timer()
-        self.run_timer(t_start)
-        
         #
         if self.project_buttons.get(project_id) == None:
             # stop button
@@ -277,6 +290,11 @@ class RecorderGUI():
             # only write the change if the block is changed right now by user
             if t_start == None:
                 self.recorder.write_change(project_id)
+                
+        # restart timer
+        self.stop_timer()
+        self.reset_timer()
+        self.run_timer(t_start)
         
         # delete text in text field
         self.reset_text(init_text)
@@ -298,6 +316,7 @@ class RecorderGUI():
         
         self.c_button_project(self.recorder.cached_project_id, self.recorder.cached_project_t_start, self.recorder.cached_text)
         
+        self.update_timer_today()
         self.root.mainloop()
         return
         

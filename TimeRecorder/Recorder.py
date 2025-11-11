@@ -88,15 +88,13 @@ class Recorder:
                 self.cached_project_t_start = data_old["blocks"][-1]["t_start"]
                 self.cached_text = data_old["blocks"][-1]["text"]
                 
-                #  or ask user when it ended
-                # .
-                # .
-                # .
-                
-                pass
-                
+            previous_time = 0
+            for block in data_old["blocks"]:
+                if block["t_end"] != None:
+                    previous_time += int(block["t_end"]) - int(block["t_start"])
             
-        
+            self.gui.timer_today_value = previous_time
+                
         except (FileNotFoundError, IndexError) as e:
             # if todays session does not exist
                 # go the way the temporary approach is running
@@ -104,10 +102,6 @@ class Recorder:
             file = open(self.session_file, "w")
             file.write("{\"blocks\": []}")
             file.close()
-            
-            
-            
-        
         
         #----
         # temporary approach
