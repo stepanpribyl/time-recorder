@@ -48,10 +48,9 @@ class Recorder:
     
     # ----------------------------------------------------------                
     def ensure_week_dir(self):
-        path = os.path.join(self.root_dir, "sessions")
         name = self.get_session_week_name()
         
-        self.current_week_dir = os.path.join(path, name)
+        self.current_week_dir = os.path.join(self.sessions_dir, name)
         
         try:
             os.mkdir(self.current_week_dir)
