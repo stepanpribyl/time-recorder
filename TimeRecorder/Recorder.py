@@ -8,6 +8,7 @@ class Recorder:
     def __init__(self, file_name):        
         self.gui = RecorderGUI(self)
         self.root_dir = os.getcwd()
+        self.sessions_dir = os.path.join(self.root_dir, "sessions")
         self.config_file_name = file_name
         
         self.current_weeknumber = datetime.datetime.today().isocalendar()[1]
@@ -59,6 +60,10 @@ class Recorder:
         except FileExistsError as e:
             print(f"Warning: Week dir {name} already exists.")
             return 
+    
+    # ----------------------------------------------------------                
+    def get_week_dirs(self):
+        return next(os.walk(self.sessions_dir))[1]
         
     # ----------------------------------------------------------                
     def pick_session_file(self):
