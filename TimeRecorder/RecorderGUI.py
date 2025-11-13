@@ -1,7 +1,7 @@
 from tkinter import Tk, Text, INSERT, N, W, E, S, Frame, Button, Label
 import time
 import datetime
-from TimeRecorder.ResultBrowser import *
+from TimeRecorder.DynamicTableResults import *
 
 ####################################
 # GUI support functions 
@@ -260,9 +260,11 @@ class RecorderGUI():
         
     # ----------------------------------------------------------        
     def c_button_results(self):
-        setup_json()
-        app = ResultBrowser()
+        headers = self.recorder.get_week_dirs()
+        
+        app = DynamicTableApp(headers, self.recorder.sessions_dir)
         app.mainloop()
+        
         return
     
     # ----------------------------------------------------------        
