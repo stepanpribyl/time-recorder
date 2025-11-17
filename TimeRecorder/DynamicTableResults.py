@@ -81,6 +81,7 @@ class DynamicTableApp(tk.Tk):
                 file_data = json.load(file)
                 file.close()
                 
+            # LAYER 1 ----------------------------------------------------
             self.data[week_id].append({
                 "date": filename[len("session")+4+1:].replace(".json", "")
             })
@@ -91,6 +92,34 @@ class DynamicTableApp(tk.Tk):
             # add a TOTAL column value for current day
             self.data[week_id][-1]["TOTAL"] = round(sum([b["t_end"] - b["t_start"] for b in file_data["blocks"] if b["t_end"] != None])/3600, 2)
             # print(self.data[week_id])
+            
+            # LAYER 2 ----------------------------------------------------
+            self.data[week_id].append({
+                "date": "",
+            })
+            
+            for project_id in active_projects:
+                # value from previous line:
+                project_time = self.data[week_id][-2][project_id]
+                total_time = self.data[week_id][-2]["TOTAL"]
+                if total_time > 0:
+                    ratio = project_time / total_time
+                else:
+                    ratio = 0.5
+                general_time = self.data[week_id][-2]["general"]
+                
+                if project_time < 10/60 or project_id == "general":
+                    target_time = 0
+                
+                else:
+                    target_time = round(1/4 * round((project_time + ratio*general_time)*4, 0), 2)
+                
+                # add all time slots within each project 
+                self.data[week_id][-1][project_id] = target_time
+                
+            # add a TOTAL column value for current day
+            self.data[week_id][-1]["TOTAL"] = sum([item for key, item in self.data[week_id][-1].items() if item!=""])
+            
         return
     
     def on_select(self, event):
