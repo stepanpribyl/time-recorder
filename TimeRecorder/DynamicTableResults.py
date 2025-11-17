@@ -39,6 +39,9 @@ class DynamicTableApp(tk.Tk):
         scrollbar = ttk.Scrollbar(frame, orient="vertical", command=self.tree.yview)
         scrollbar.pack(side="right", fill="y")
         self.tree.configure(yscroll=scrollbar.set)
+        # get tags
+        self.tree.tag_configure("highlight", foreground="green")
+        self.tree.tag_configure("fade", foreground="#9b9b9b")
 
         self.status = ttk.Label(
             self,
@@ -151,9 +154,12 @@ class DynamicTableApp(tk.Tk):
             self.tree.column(col, width=max(100, len(col) * 10), anchor="center")
 
         # Insert data
-        for entry in rows:
+        for i, entry in enumerate(rows):
             values = [entry.get(col, "") for col in columns]
-            self.tree.insert("", "end", values=values)
+            tags = len(columns)*[""]
+            if i%2 == 1:
+                tags = len(tags)*["fade"]
+            self.tree.insert("", "end", values=values, tags=tags)
 
         self.status.config(text=f"Showing {len(rows)} records in {week_id}")
 
