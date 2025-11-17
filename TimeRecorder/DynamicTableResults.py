@@ -82,11 +82,11 @@ class DynamicTableApp(tk.Tk):
                 file.close()
                 
             self.data[week_id].append({
-                "date": filename.replace("session", "").replace(".json", "")
+                "date": filename[len("session")+4+1:].replace(".json", "")
             })
             for project_id in active_projects:
                 # add all time slots within each project 
-                self.data[week_id][-1][project_id] = round(sum([b["t_end"] - b["t_start"] for b in file_data["blocks"] if b["t_end"] != None and b["projectId"] == project_id])/3600, 3)
+                self.data[week_id][-1][project_id] = round(sum([b["t_end"] - b["t_start"] for b in file_data["blocks"] if b["t_end"] != None and b["projectId"] == project_id])/3600, 2)
             
             # add a TOTAL column value for current day
             self.data[week_id][-1]["TOTAL"] = round(sum([b["t_end"] - b["t_start"] for b in file_data["blocks"] if b["t_end"] != None])/3600, 2)
