@@ -111,11 +111,12 @@ class DynamicTableApp(tk.Tk):
                     ratio = project_time / total_time
                 else:
                     ratio = 0.5
-                general_time = self.data[week_id][-2]["general"]
                 
-                if project_time < 10/60 or project_id == "general":
+                
+                if project_time < 5/60 or project_id == "general":
                     target_time = 0
-                
+                elif project_time < 15/16:
+                    target_time = 0.25
                 else:
                     target_time = round(1/4 * round((project_time + ratio*general_time)*4, 0), 2)
                 
