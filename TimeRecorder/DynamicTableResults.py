@@ -127,6 +127,35 @@ class DynamicTableApp(tk.Tk):
             
         return
     
+    def trim_values(self, week_id, total_base, total_temp):
+        """
+        total_base ... total value of actual times floored to 1/4s
+        total_temp ... sum of single project values rounded to 1/4s
+        
+        This function aims to trim values such that these totals match.
+        Method: Trim from the max to min values.
+        """
+        filtered_data = {k: v for k, v in self.data[week_id][-1].items() if k != "date" and k != "total"}
+        sorted_values = {p_id: v for p_id, v in sorted(filtered_data.items(), key=lambda item: item[1])}
+        print(sorted_values.keys())
+        
+        # init step and its direction
+        step = 0.25
+        if total_base < total_temp:
+            step = -0.25
+        
+        non_zero_projects = {p_id: v for p_id, v in sorted_values.items() if v > 0}
+        total_diff_quarters = int(abs((total_base - total_temp)/step))
+        
+        # if we have enough projects to iterate over
+        if total_diff_quarters <= non_zero_projects:
+            for i in range(total_diff_quarters):
+                project_id = list(sorted_values.keys())[-1-i]
+                self.data[week_id][-1][project_id] += step
+        else:
+            print("WARNING: Too few non-zero projects to process trimming.")
+            
+    
     def on_select(self, event):
         week_id = self.combo.get()
         if len(self.data[week_id]) == 0:
