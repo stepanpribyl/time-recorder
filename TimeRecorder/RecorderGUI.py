@@ -34,7 +34,7 @@ def make_counter():
 
 class RecorderGUI():
     def __init__(self, recorder):
-        self.version = "0.2.1"
+        self.version = "0.2.2"
         
         self.recorder = recorder
         self.root = Tk()
