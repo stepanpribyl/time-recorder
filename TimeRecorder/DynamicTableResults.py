@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import os
 import json
+from math import floor
 
 class DynamicTableApp(tk.Tk):
     def __init__(self, headers, session_dir):
@@ -123,7 +124,14 @@ class DynamicTableApp(tk.Tk):
                 # add all time slots within each project 
                 self.data[week_id][-1][project_id] = target_time
                 
-            # add a TOTAL column value for current day
+            # compute TOTAL column value for current day based on real one
+            total_base = round(1/4 * floor(self.data[week_id][-2]["TOTAL"]*4), 2)
+            total_temp = sum([item for key, item in self.data[week_id][-1].items() if item!=""])
+            
+            if total_base != total_temp:
+                print(f"Trimming values to reach {total_base}")
+                self.trim_values(week_id, total_base, total_temp)
+            
             self.data[week_id][-1]["TOTAL"] = sum([item for key, item in self.data[week_id][-1].items() if item!=""])
             
         return
