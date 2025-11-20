@@ -146,7 +146,7 @@ class DynamicTableApp(tk.Tk):
         """
         filtered_data = {k: v for k, v in self.data[week_id][-1].items() if k != "date" and k != "total"}
         sorted_values = {p_id: v for p_id, v in sorted(filtered_data.items(), key=lambda item: item[1])}
-        print(sorted_values.keys())
+        # print(sorted_values.keys())
         
         # init step and its direction
         step = 0.25

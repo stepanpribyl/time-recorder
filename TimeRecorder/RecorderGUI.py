@@ -126,7 +126,7 @@ class RecorderGUI():
     def add_buttons_project(self):
         for project_id, spec in self.project_buttons.items():
             if spec.get("button") == None:
-                print(spec)
+                # print(spec)
                 bg = spec["color"]
                 fg = spec["font-color"]
                 label = spec["label"]
