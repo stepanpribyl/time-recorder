@@ -190,7 +190,7 @@ class RecorderGUI():
         # if there already is some value in the timer, add it to th overall counter
         if self.timer_t_start != None and self.timer_running:
             self.timer_today_value += int(time.time()) - self.timer_t_start 
-            print(f"Adding f{int(time.time()) - self.timer_t_start} seconds to overall time")
+            print(f"Adding {int(time.time()) - self.timer_t_start} seconds to overall time")
         
         self.timer_running = False
         
