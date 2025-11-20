@@ -116,7 +116,7 @@ class DynamicTableApp(tk.Tk):
                 
                 if project_time < 5/60 or project_id == "general":
                     target_time = 0
-                elif project_time < 15/16:
+                elif project_time < 15/60:
                     target_time = 0.25
                 else:
                     target_time = round(1/4 * round((project_time + ratio*general_time)*4, 0), 2)
@@ -157,7 +157,7 @@ class DynamicTableApp(tk.Tk):
         total_diff_quarters = int(abs((total_base - total_temp)/step))
         
         # if we have enough projects to iterate over
-        if total_diff_quarters <= non_zero_projects:
+        if total_diff_quarters <= len(non_zero_projects.keys()):
             for i in range(total_diff_quarters):
                 project_id = list(sorted_values.keys())[-1-i]
                 self.data[week_id][-1][project_id] += step
