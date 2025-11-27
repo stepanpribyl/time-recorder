@@ -6,7 +6,6 @@ import time
 
 class Recorder:
     def __init__(self, file_name):        
-        self.gui = RecorderGUI(self)
         self.root_dir = os.getcwd()
         self.sessions_dir = os.path.join(self.root_dir, "sessions")
         self.config_file_name = file_name
@@ -20,6 +19,7 @@ class Recorder:
         self.cached_project_t_start = None
         self.cached_text = None
         
+        self.gui = RecorderGUI(self)
         self.pick_session_file()        
         self.load()
         

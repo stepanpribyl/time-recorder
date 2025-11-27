@@ -81,7 +81,7 @@ class RecorderGUI():
         self.frame_footer.rowconfigure(0, weight=1)
         self.frame_footer.columnconfigure(0, weight=1)
         self.frame_footer.columnconfigure(1, weight=1)
-        self.version_label = Label(self.frame_footer, text=f"v{self.version}")
+        self.version_label = Label(self.frame_footer, text=f"v{self.version}  |  CW {self.recorder.current_weeknumber}")
         self.timer_today_label = Label(self.frame_footer, text=f"Time Today: 0:00:00")
         
         # only adding the READY label here, the text field goes with the project buttons
