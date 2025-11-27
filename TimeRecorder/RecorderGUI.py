@@ -109,8 +109,8 @@ class RecorderGUI():
         self.timer_label.grid(row=1, column=0, sticky=W)
         self.text_block.grid(row=2, column=0, sticky=N, columnspan=10)
         
-        self.version_label.grid(row=0, column=0, sticky=W)
-        self.timer_today_label.grid(row=0, column=1, sticky=E, ipadx=10)
+        self.version_label.grid(row=0, column=0, ipadx=5, sticky=W)
+        self.timer_today_label.grid(row=0, column=1, sticky=E, ipadx=5)
         
         i = make_counter()
         for project_id in self.project_buttons.keys():
