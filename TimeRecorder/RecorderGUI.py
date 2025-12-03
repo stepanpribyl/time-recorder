@@ -1,4 +1,4 @@
-from tkinter import Tk, Text, INSERT, N, W, E, S, Frame, Button, Label
+from tkinter import Tk, Text, INSERT, N, W, E, S, Frame, Button, Label, Entry, RIGHT
 import time
 import datetime
 from TimeRecorder.DynamicTableResults import *
@@ -91,9 +91,13 @@ class RecorderGUI():
         self.timer_running = False
         self.timer_label = Label(self.frame_right, text="0:00:00", font=("Sans", 10))
         
-        
-        
-        
+        self.frame_work_hours = Frame(self.frame_right)
+        self.btn_hours = Button(self.frame_work_hours, text="Submit")
+        self.entry_target_time = tk.StringVar()
+        self.target_time = 7.5
+        self.entry_hours = Entry(self.frame_work_hours, width=6, justify=RIGHT, textvariable=self.entry_target_time)
+        self.entry_hours.insert(0,str(self.target_time))
+        self.label_h = Label(self.frame_work_hours, text="h")
         
        
     # ----------------------------------------------------------    
@@ -102,15 +106,20 @@ class RecorderGUI():
         self.frame.grid(row=0, column=0)
         self.frame_left.grid(row=0, column=0, pady=2)
         self.frame_right.grid(row=0, column=1, sticky=N, rowspan=len(self.project_buttons.keys()))
+        
         self.frame_btns_f.grid(row=1, column=0, columnspan=2, pady=5)
         self.frame_footer.grid(row=2, column=0, columnspan=2, sticky=W+E)
         
         self.current_project_label.grid(row=0, column=0, sticky=N+W)
         self.timer_label.grid(row=1, column=0, sticky=W)
+        self.frame_work_hours.grid(row=0, column=1, rowspan=2, padx=5, sticky=E)
         self.text_block.grid(row=2, column=0, sticky=N, columnspan=10)
         
         self.version_label.grid(row=0, column=0, ipadx=5, sticky=W)
         self.timer_today_label.grid(row=0, column=1, sticky=E, ipadx=5)
+        self.btn_hours.grid(row=0, columnspan=2, column=0, ipadx=5, sticky=E)
+        self.entry_hours.grid(row=1, column=0, ipadx=3, sticky=E)
+        self.label_h.grid(row=1, column=1, sticky=E)
         
         i = make_counter()
         for project_id in self.project_buttons.keys():
