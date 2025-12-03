@@ -239,9 +239,14 @@ class RecorderGUI():
         self.frame_right.configure(bg=bg_color)
         self.frame_btns_f.configure(bg=bg_color)
         self.frame.configure(bg=bg_color)
+        self.frame_work_hours.configure(bg=bg_color)
         self.current_project_label.configure(bg=bg_color, fg=fg_color)
         self.timer_label.configure(bg=bg_color, fg=fg_color)
         self.text_block.configure(bg=bg_color, fg=fg_color)
+        self.entry_hours.configure(bg=bg_color, fg=fg_color)
+        self.label_h.configure(bg=bg_color, fg=fg_color)
+        self.btn_hours.configure(bg=bg_color, fg=fg_color)
+        
         return
         
     # ----------------------------------------------------------    
