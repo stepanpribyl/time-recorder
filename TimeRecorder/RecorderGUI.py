@@ -85,8 +85,9 @@ class RecorderGUI():
         self.frame_right.rowconfigure(0, weight=1)
         self.frame_right.columnconfigure(0, weight=1)
         self.frame_right.columnconfigure(1, weight=1)
+        
         self.version_label = Label(self.frame_footer, text=f"v{self.version}  |  CW {self.recorder.current_weeknumber}")
-        self.timer_today_label = Label(self.frame_footer, text=f"Time Today: 0:00:00")
+        self.timer_today_label = Label(self.frame_footer, text=f"End: 00:00 | Time Today: 0:00:00")
         
         # only adding the READY label here, the text field goes with the project buttons
         self.current_project_label = Label(self.frame_right, text="Ready.", font=("Sans", 15, "bold"))
@@ -164,8 +165,16 @@ class RecorderGUI():
     
     # ----------------------------------------------------------    
     def update_timer_today(self, delta=0):
+        # time today
         formatted_time = datetime.timedelta(seconds=self.timer_today_value+delta)
-        self.timer_today_label.configure(text=f"Time Today: {formatted_time}")
+        
+        # end time 
+        timestamp = time.time() + float(self.target_time)*3600 - self.timer_today_value -  delta
+        end_time = datetime.datetime.fromtimestamp(timestamp)
+        formatted_end_time = end_time.strftime("%H:%M")
+        
+        self.timer_today_label.configure(text=f"End: {formatted_end_time} | Time Today: {formatted_time}")
+        
         return
     
     # ----------------------------------------------------------    
