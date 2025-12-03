@@ -78,9 +78,13 @@ class RecorderGUI():
             "button": Button(self.frame_btns_f, text="RESULTS", bg=self.color_btn_f, width=10, font=("Sans", 10, "bold"))
         }
         
+        # configure columns and rows in frames 
         self.frame_footer.rowconfigure(0, weight=1)
         self.frame_footer.columnconfigure(0, weight=1)
         self.frame_footer.columnconfigure(1, weight=1)
+        self.frame_right.rowconfigure(0, weight=1)
+        self.frame_right.columnconfigure(0, weight=1)
+        self.frame_right.columnconfigure(1, weight=1)
         self.version_label = Label(self.frame_footer, text=f"v{self.version}  |  CW {self.recorder.current_weeknumber}")
         self.timer_today_label = Label(self.frame_footer, text=f"Time Today: 0:00:00")
         
