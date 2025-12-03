@@ -254,7 +254,9 @@ class RecorderGUI():
         self.function_buttons["break"]["button"].configure(command=self.c_button_break)
         self.function_buttons["saveText"]["button"].configure(command=self.c_button_save_text)
         self.function_buttons["results"]["button"].configure(command=self.c_button_results)
-            
+        
+        self.btn_hours.configure(command=self.c_button_submit)
+        
         for project_id in self.project_buttons.keys():
             self.project_buttons[project_id]["button"].configure(command= lambda p_id=project_id: self.c_button_project(p_id))
             pass
@@ -293,6 +295,10 @@ class RecorderGUI():
         app.mainloop()
         
         return
+    
+    # ----------------------------------------------------------        
+    def c_button_submit(self):
+        self.target_time = float(self.entry_target_time.get())
     
     # ----------------------------------------------------------        
     def c_button_project(self, project_id, t_start=None, init_text=None):
