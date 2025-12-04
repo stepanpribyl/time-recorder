@@ -169,11 +169,17 @@ class RecorderGUI():
         formatted_time = datetime.timedelta(seconds=self.timer_today_value+delta)
         
         # end time 
-        timestamp = time.time() + float(self.target_time)*3600 - self.timer_today_value -  delta
+        remaining_time = float(self.target_time)*3600 - self.timer_today_value -  delta
+        timestamp = time.time() + remaining_time
         end_time = datetime.datetime.fromtimestamp(timestamp)
         formatted_end_time = end_time.strftime("%H:%M")
         
-        self.timer_today_label.configure(text=f"End: {formatted_end_time} | Time Today: {formatted_time}")
+        if remaining_time < 0:
+            color_timer_fg = "red"
+        else:
+            color_timer_fg = "black"
+        self.timer_today_label.configure(text=f"End: {formatted_end_time} | Time Today: {formatted_time}", fg=color_timer_fg)
+        
         
         return
     
