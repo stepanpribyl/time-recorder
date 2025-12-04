@@ -1,4 +1,4 @@
-from tkinter import Tk, Text, INSERT, N, W, E, S, Frame, Button, Label, Entry, RIGHT
+from tkinter import Tk, Text, INSERT, N, W, E, S, Frame, Button, Label, Entry, RIGHT, END
 import time
 import datetime
 from TimeRecorder.DynamicTableResults import *
@@ -304,7 +304,12 @@ class RecorderGUI():
     
     # ----------------------------------------------------------        
     def c_button_submit(self):
-        self.target_time = float(self.entry_target_time.get())
+        try:
+            self.target_time = float(self.entry_target_time.get().replace(",","."))
+        except ValueError:
+            self.entry_hours.delete(0, END)
+            self.entry_hours.insert(0, self.target_time)
+        
         delta = int(time.time())-self.timer_t_start
         self.update_timer_today(delta)
     
