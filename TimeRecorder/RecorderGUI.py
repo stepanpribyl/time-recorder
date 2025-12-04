@@ -305,6 +305,8 @@ class RecorderGUI():
     # ----------------------------------------------------------        
     def c_button_submit(self):
         self.target_time = float(self.entry_target_time.get())
+        delta = int(time.time())-self.timer_t_start
+        self.update_timer_today(delta)
     
     # ----------------------------------------------------------        
     def c_button_project(self, project_id, t_start=None, init_text=None):
