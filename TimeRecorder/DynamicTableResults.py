@@ -104,9 +104,12 @@ class DynamicTableApp(tk.Tk):
             
             for project_id in active_projects:
                 # value from previous line:
-                project_time = self.data[week_id][-2][project_id]
-                general_time = self.data[week_id][-2]["general"]
-                total_time = self.data[week_id][-2]["TOTAL"] - general_time
+                project_time = self.data[week_id][-2].get(project_id)
+                general_time = self.data[week_id][-2].get("general")
+                if general_time == None:
+                    general_time = 0
+                
+                total_time = self.data[week_id][-2].get("TOTAL") - general_time
                 
                 if total_time > 0:
                     ratio = project_time / total_time
