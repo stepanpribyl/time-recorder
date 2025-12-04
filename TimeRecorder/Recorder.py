@@ -171,3 +171,5 @@ class Recorder:
         with open(self.session_file, "w") as file:
             json.dump(data_old, file)
             file.close()  
+        return
+        
