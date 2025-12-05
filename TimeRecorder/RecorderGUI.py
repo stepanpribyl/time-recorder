@@ -305,12 +305,20 @@ class RecorderGUI():
     # ----------------------------------------------------------        
     def c_button_submit(self):
         try:
+            # attempt to get value from entry line
             self.target_time = float(self.entry_target_time.get().replace(",","."))
         except ValueError:
+            # failed format, reset, try again
             self.entry_hours.delete(0, END)
             self.entry_hours.insert(0, self.target_time)
         
-        delta = int(time.time())-self.timer_t_start
+        # if timer is running, add also the surrent project timer value to the base from DB
+        if self.timer_running:
+            delta = int(time.time())-self.timer_t_start
+        else:
+            delta = 0
+            
+        # udpate timer
         self.update_timer_today(delta)
     
     # ----------------------------------------------------------        
