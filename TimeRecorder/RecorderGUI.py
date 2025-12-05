@@ -104,6 +104,18 @@ class RecorderGUI():
         self.entry_hours.insert(0,str(self.target_time))
         self.label_h = Label(self.frame_work_hours, text="h")
         
+        # SHORTCUTS:
+        self.root.bind("<Control-s>", self.on_ctrl_s)
+        self.entry_hours.bind("<Return>", self.on_enter)
+    
+    
+    # ----------------------------------------------------------  
+    def on_ctrl_s(self, event):
+        self.c_button_save_text()   
+        
+    # ---------------------------------------------------------- 
+    def on_enter(self, event):
+        self.c_button_submit()
        
     # ----------------------------------------------------------    
     def build_grid(self):
