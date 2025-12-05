@@ -120,8 +120,8 @@ class RecorderGUI():
         self.frame_work_hours.grid(row=0, column=1, rowspan=2, padx=5, sticky=E)
         self.text_block.grid(row=2, column=0, sticky=N, columnspan=10)
         
-        self.version_label.grid(row=0, column=0, ipadx=5, sticky=W)
-        self.timer_today_label.grid(row=0, column=1, sticky=E, ipadx=5)
+        self.version_label.grid(row=0, column=0, ipadx=2, sticky=W)
+        self.timer_today_label.grid(row=0, column=1, sticky=E, ipadx=2)
         self.btn_hours.grid(row=0, columnspan=2, column=0, ipadx=5, sticky=E)
         self.entry_hours.grid(row=1, column=0, ipadx=3, sticky=E)
         self.label_h.grid(row=1, column=1, sticky=E)
