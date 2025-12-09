@@ -120,9 +120,15 @@ class RecorderGUI():
     # ----------------------------------------------------------    
     def build_grid(self):
         # layout
-        self.frame.grid(row=0, column=0)
-        self.frame_left.grid(row=0, column=0, pady=2)
-        self.frame_right.grid(row=0, column=1, sticky=N, rowspan=len(self.project_buttons.keys()))
+        # self.frame.grid(row=0, column=0)
+        
+        # pre-compute the right frame and the stop its propagation (reason = rigid text widget)
+        self.frame_right.grid(row=0, column=1, sticky="nsew")
+        self.root.update_idletasks()          # let grid calculate natural size of "right"
+        self.frame_right.grid_propagate(False)
+        
+        # continue with the rest of the content
+        self.frame_left.grid(row=0, column=0, pady=2, sticky="n")
         
         self.frame_btns_f.grid(row=1, column=0, columnspan=2, pady=5)
         self.frame_footer.grid(row=2, column=0, columnspan=2, sticky=W+E)
