@@ -88,11 +88,24 @@ class Recorder:
                 
             print("Continuing previous session from today")
             
-            if data_old["blocks"][-1]["t_end"] == None:
-                # resume previous session
+            if data_old["blocks"][-1]["t_end"] == None and data_old["blocks"][-1]["projectId"] in self.gui.project_buttons.keys():
+                # resume previous (last) session
                 self.cached_project_id = data_old["blocks"][-1]["projectId"]
                 self.cached_project_t_start = data_old["blocks"][-1]["t_start"]
                 self.cached_text = data_old["blocks"][-1]["text"]
+                
+            elif data_old["blocks"][-1]["t_end"] != None:
+                # the last session was properly ended
+                pass
+            
+            else:
+                # the last session's project does not exist in config anymore
+                # default action: end now
+                data_old["blocks"][-1]["t_end"] = int(time.time())
+                self.write_change(None, stop=True)
+                
+                # recursive action: repeat with updated t_end
+                self.pick_session_file()
                 
             previous_time = 0
             for block in data_old["blocks"]:
@@ -134,7 +147,10 @@ class Recorder:
         
         if len(data_old["blocks"]) > 0 and data_old["blocks"][-1]["t_end"] == None:
             data_old["blocks"][-1]["t_end"] = timestamp
-            data_old["blocks"][-1]["text"] = self.gui.text_block.get("1.0",'end-1c')
+            try:
+                data_old["blocks"][-1]["text"] = self.gui.text_block.get("1.0",'end-1c')
+            except AttributeError:
+                print("Warning: Reading text input while GUI not initialized. Chill.")
         
         data = {"blocks": data_old["blocks"]}
         
