@@ -79,12 +79,19 @@ class RecorderGUI():
         }
         
         # configure columns and rows in frames 
+        self.root.rowconfigure(0, weight=1)
+        self.root.columnconfigure(1, weight=1)
         self.frame_footer.rowconfigure(0, weight=1)
         self.frame_footer.columnconfigure(0, weight=1)
         self.frame_footer.columnconfigure(1, weight=1)
-        self.frame_right.rowconfigure(0, weight=1)
+       
+        # configure right frame and 1st three button lines for rigid text widget spacing
+        self.frame_right.rowconfigure(2, weight=1)
         self.frame_right.columnconfigure(0, weight=1)
-        self.frame_right.columnconfigure(1, weight=1)
+        
+        self.frame_left.columnconfigure(0, weight=1)
+        for i in range(3):
+            self.frame_left.rowconfigure(i, weight=1)
         
         self.version_label = Label(self.frame_footer, text=f"v{self.version}  |  CW {self.recorder.current_weeknumber}")
         self.timer_today_label = Label(self.frame_footer, text=f"End: 00:00 | Time Today: 0:00:00")
