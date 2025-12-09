@@ -130,7 +130,7 @@ class RecorderGUI():
         self.current_project_label.grid(row=0, column=0, sticky=N+W)
         self.timer_label.grid(row=1, column=0, sticky=W)
         self.frame_work_hours.grid(row=0, column=1, rowspan=2, padx=5, sticky=E)
-        self.text_block.grid(row=2, column=0, sticky=N, columnspan=10)
+        self.text_block.grid(row=2, column=0, sticky="nsew", columnspan=2, padx=3)
         
         self.version_label.grid(row=0, column=0, ipadx=2, sticky=W)
         self.timer_today_label.grid(row=0, column=1, sticky=E, ipadx=2)
@@ -160,7 +160,7 @@ class RecorderGUI():
         
         # overengineered height of text field
         h = int((len(self.project_buttons.keys())-1.5)*1.7)
-        self.text_block = Text(self.frame_right, height=h, width = 25, wrap="word")
+        self.text_block = Text(self.frame_right, width = 24, wrap="word")
         self.text_block.insert(INSERT, ">>")
         
         return
