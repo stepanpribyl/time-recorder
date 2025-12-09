@@ -174,7 +174,7 @@ class RecorderGUI():
         # overengineered height of text field
         h = int((len(self.project_buttons.keys())-1.5)*1.7)
         self.text_block = Text(self.frame_right, width = 24, wrap="word")
-        self.text_block.insert(INSERT, ">>")
+        self.text_block.insert(INSERT, ">")
         
         return
     
