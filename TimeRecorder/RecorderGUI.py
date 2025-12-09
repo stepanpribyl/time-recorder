@@ -53,12 +53,12 @@ class RecorderGUI():
         self.root.tk_setPalette(background=self.default_bg, foreground='black')
         
         # top frames
-        self.frame = Frame(self.root)
+        # self.frame = Frame(self.root)
         
-        self.frame_left = Frame(self.frame)
-        self.frame_right = Frame(self.frame)
-        self.frame_btns_f = Frame(self.frame)
-        self.frame_footer = Frame(self.frame)
+        self.frame_left = Frame(self.root)
+        self.frame_right = Frame(self.root)
+        self.frame_btns_f = Frame(self.root)
+        self.frame_footer = Frame(self.root)
         
         # children
         self.project_buttons["general"] = {
@@ -269,7 +269,7 @@ class RecorderGUI():
         self.frame_left.configure(bg=bg_color)
         self.frame_right.configure(bg=bg_color)
         self.frame_btns_f.configure(bg=bg_color)
-        self.frame.configure(bg=bg_color)
+        self.root.configure(bg=bg_color)
         self.frame_work_hours.configure(bg=bg_color)
         self.current_project_label.configure(bg=bg_color, fg=fg_color)
         self.timer_label.configure(bg=bg_color, fg=fg_color)
