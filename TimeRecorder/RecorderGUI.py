@@ -183,7 +183,7 @@ class RecorderGUI():
         print()
         self.text_block.delete("1.0", 'end-1c')
         if init_text == None:
-            self.text_block.insert(INSERT, ">>")
+            self.text_block.insert(INSERT, ">")
         else:
             self.text_block.insert(INSERT, init_text)
         return
