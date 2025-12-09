@@ -20,8 +20,10 @@ class Recorder:
         self.cached_text = None
         
         self.gui = RecorderGUI(self)
-        self.pick_session_file()        
+        
         self.load()
+        self.pick_session_file()        
+        
         
     
     # ----------------------------------------------------------    
