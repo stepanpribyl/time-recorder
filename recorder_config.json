@@ -1,0 +1,34 @@
+{
+	"projects": {
+		"RTL": {
+			"color": "orange",
+			"label": "RTL",
+			"font-color": "black"
+		},
+		"Legacy": {
+			"color": "#5b65c3",
+			"label": "Legacy",
+			"font-color": "white"
+		},
+		"GQS": {
+			"color": "#75c35b",
+			"label": "GQS Robot",
+			"font-color": "white"
+		},
+		"GEI": {
+			"color": "pink",
+			"label": "GEI",
+			"font-color": "black"
+		},
+		"Rezie": {
+			"color": "#4c3389",
+			"label": "Rezie",
+			"font-color": "white"
+		},
+		"Skoleni": {
+			"color": "#c35b71",
+			"label": "Skoleni CAD",
+			"font-color": "black"
+		}
+	}
+}
