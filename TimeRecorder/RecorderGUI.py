@@ -112,6 +112,7 @@ class RecorderGUI():
         self.label_h = Label(self.frame_work_hours, text="h")
         
         # SHORTCUTS:
+        self.root.bind("<Escape>", self.on_escape)
         self.root.bind("<Control-s>", self.on_ctrl_s)
         self.entry_hours.bind("<Return>", self.on_enter)
     
@@ -124,6 +125,10 @@ class RecorderGUI():
     def on_enter(self, event):
         self.c_button_submit()
        
+    # ---------------------------------------------------------- 
+    def on_escape(self, event):
+        self.root.iconify()
+        
     # ----------------------------------------------------------    
     def build_grid(self):
         # layout
