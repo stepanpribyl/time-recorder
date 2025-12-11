@@ -113,6 +113,11 @@ class Recorder:
                     previous_time += int(block["t_end"]) - int(block["t_start"])
             
             self.gui.timer_today_value = previous_time
+            
+            if data_old.get("targetTime") != None:
+                print(f"DEBUG: Setting target time to value {data_old.get('targetTime')}")
+                self.gui.target_time = data_old.get("targetTime")
+                self.gui.submit_target_time()
                 
         except (FileNotFoundError, IndexError) as e:
             # if todays session does not exist
