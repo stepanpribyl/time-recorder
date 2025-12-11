@@ -167,7 +167,21 @@ class Recorder:
             json.dump(data, file)
             file.close() 
     
-    # ----------------------------------------------------------        
+    # ---------------------------------------------------------- 
+    def write_target_time_change(self, value):
+        # read previous version of file        
+        with open(self.session_file, "r") as file_old:
+            data_old = json.load(file_old)   
+            file_old.close()
+            
+        data_old["targetTime"] = value
+        
+        with open(self.session_file, "w") as file:
+            json.dump(data_old, file)
+            file.close() 
+        
+
+    # ---------------------------------------------------------- 
     def save_to_last_block(self, value_name, value, write_character):
         
         # read previous version of file        
