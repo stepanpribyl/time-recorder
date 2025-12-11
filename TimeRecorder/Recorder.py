@@ -152,7 +152,13 @@ class Recorder:
             except AttributeError:
                 print("Warning: Reading text input while GUI not initialized. Chill.")
         
-        data = {"blocks": data_old["blocks"]}
+        if data_old.get("targetTime") == None:
+            data_old["targetTime"] = self.gui.target_time
+        
+        data = {
+            "targetTime": data_old["targetTime"],
+            "blocks": data_old["blocks"]
+        }
         
         if not stop:            
             new_block = {
