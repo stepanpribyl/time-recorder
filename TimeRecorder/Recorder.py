@@ -119,7 +119,7 @@ class Recorder:
                 # go the way the temporary approach is running
                 
             file = open(self.session_file, "w")
-            file.write("{\"blocks\": []}")
+            file.write("{\"targetTime\": 7.5, \"blocks\": []}")
             file.close()
         
         #----
