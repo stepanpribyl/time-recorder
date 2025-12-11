@@ -305,6 +305,21 @@ class RecorderGUI():
         self.recorder.cached_project_t_start = None
         self.recorder.cached_text = None
     
+    # ----------------------------------------------------------        
+    def submit_target_time(self):
+        # Reset text entry
+        self.entry_hours.delete(0, END)
+        self.entry_hours.insert(0, self.target_time)
+        
+        # if timer is running, add also the surrent project timer value to the base from DB
+        if self.timer_running:
+            delta = int(time.time())-self.timer_t_start
+        else:
+            delta = 0
+            
+        # udpate timer
+        self.update_timer_today(delta)
+    
     # ----------------------------------------------------------    
     def c_button_break(self):
         self.change_colors(self.default_bg, "black")
@@ -337,19 +352,13 @@ class RecorderGUI():
         try:
             # attempt to get value from entry line
             self.target_time = float(self.entry_target_time.get().replace(",","."))
-        except ValueError:
-            # failed format, reset, try again
-            self.entry_hours.delete(0, END)
-            self.entry_hours.insert(0, self.target_time)
-        
-        # if timer is running, add also the surrent project timer value to the base from DB
-        if self.timer_running:
-            delta = int(time.time())-self.timer_t_start
-        else:
-            delta = 0
+            self.recorder.write_target_time_change(self.target_time)
             
-        # udpate timer
-        self.update_timer_today(delta)
+        except ValueError:
+            # target time unchanged, current value refilled
+            pass
+        
+        self.submit_target_time()
     
     # ----------------------------------------------------------        
     def c_button_project(self, project_id, t_start=None, init_text=None):
